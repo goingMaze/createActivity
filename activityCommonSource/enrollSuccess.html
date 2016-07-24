@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+
+		<title>报名成功</title>
+
+		<style type="text/css">
+			html {
+				height: 100%;
+			}
+			
+			body {
+				background-image: url(enrollSuccessBg.jpg);
+				background-repeat: no-repeat;
+				background-size: 100% auto;
+				background-color: #ffb119;
+				display: -webkit-box;
+				-webkit-box-align: center;
+				-webkit-box-pack: center;
+				height: 100%;
+			}
+			
+			#enrollSuccessImg {
+				max-width: 80%;
+				display: block;
+				margin-bottom: 3rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<img src="enrollSuccessImg.png" id="enrollSuccessImg" />
+		<script src="jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="frameScript.js"></script>
+		<script src="common.js"></script>
+		<script src="enrollSuccess.js"></script>
+		
+		<script type="text/javascript">
+			window.onload = loadData();
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,62 @@
+header,
+section,
+footer,
+aside,
+nav,
+article,
+figure {
+	display: block;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+header {
+	padding: 1rem;
+	font-size: 1.5rem;
+}
+
+input {
+	min-width: 12rem;
+	width: auto;
+	height: 2rem;
+	margin: 0.5rem 0;
+	margin-left: 0.5rem;
+	border: 1px solid #1ea9c2;
+	border-radius: 5px;
+	text-align: center;
+}
+
+input[type=submit] {
+	min-width: 4rem;
+	background-color: #0D8DDB;
+}
+
+input[type=submit]:active,
+input[type=submit]:hover {
+	background-color: #1ec292;
+}
+
+label {
+	font-size: 16px;
+}
+
+section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0 auto;
+}
+
+#container {
+	flex: 1;
+	display: flex;
+	align-items: center;
+}

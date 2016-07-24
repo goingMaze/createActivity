@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>活动报名页面配置</title>
+		<link rel="stylesheet" type="text/css" href="/activity-template/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/activity-template/style.css" />
+	</head>
+
+	<body>
+		<header>
+			活动报名页面创建
+		</header>
+		<div id="container">
+			<section>
+				<div>
+					<label for="name">活动名称</label>
+					<input type="text" name="name" id="name" value="" />
+				</div>
+				<div>
+					<label for="title">分享标题</label>
+					<input type="text" name="title" id="title" value="" />
+				</div>
+				<div>
+					<label for="desc">分享描述</label>
+					<input type="text" name="desc" id="desc" value="" />
+				</div>
+				<div>
+					<input type="submit" value="创建活动" id="submit" />
+				</div>
+			</section>
+		</div>
+
+		<footer>
+		</footer>
+
+		<script type="text/javascript">
+			document.getElementById("submit").addEventListener('click', function() {
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "/createActivity", true);
+				xhr.onreadystatechange = function(data) {
+					if(xhr.readyState == 4 && xhr.status == 200) {
+						var response = JSON.parse(data.currentTarget.response);
+						alert(response.msg);
+					}
+				}
+				xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded");
+				xhr.send("name=" +
+					document.getElementById("name").value + "&title=" +
+					document.getElementById("title").value + "&desc=" +
+					document.getElementById("desc").value);
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+		<title>{{data.title}}</title>
+		<link rel="stylesheet" type="text/css" href="../font/iconfont.css" />
+
+		<style type="text/css">
+			[v-cloak]{
+				display: none;
+			}
+			
+			html, body{
+				height: 100%;
+				margin: 0;
+			}			
+			
+			body {
+				position: relative;
+				color: {{data.fontColor}};
+				font-size: 1rem;
+				text-align: center;
+				background-attachment: local;
+				background: transparent url(bg.jpg) center/auto 100% no-repeat;
+			}
+			
+			#popWin {
+				display: none;
+				position: fixed;
+				z-index: 3;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.5);
+				margin: 0 auto;
+				-webkit-box-align: center;
+				-webkit-box-pack: center;
+			}
+			
+			#popWin.show {
+				display: -webkit-box;
+			}
+			
+			#popWinDesc {
+				display: none;
+				position: fixed;
+				z-index: 3;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.5);
+				margin: 0 auto;
+				-webkit-box-align: center;
+				-webkit-box-pack: center;
+			}
+			
+			#closeBtn {
+				width: 95%;
+				height: 2rem;
+				margin: 1rem auto 0;
+				padding: 0;
+				border: none;
+				border-radius: 0.2rem;
+				color: #FFFFFF;
+				line-height: 2rem;
+				background-color: {{data.closeBtnBgColror}};
+			}
+			
+			#popInner {
+				-webkit-overflow-scrolling: touch;
+				-webkit-box-flex: 1;
+				max-height: 85%;
+				overflow: auto;
+				line-height: 1.5rem;
+				text-align: justify;
+			}
+			
+			#popInner::-webkit-scrollbar {
+				display: none;
+			}
+			
+			#popWinDesc.show {
+				display: -webkit-box;
+			}
+			
+			#popOuter {
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				width: 75%;
+				max-height: 70%;
+				padding: 1rem;
+				border: 0.2rem solid #FFF;
+				border-radius: 0.5rem;
+				color: #333;
+				background-color: #FFF;
+				background-size: 100% auto;
+			}
+			
+			.content {
+				width: 100%;
+				margin: 0;
+			}
+			
+			.iconfont {
+				float: right;
+				margin-right: 0.5rem;
+				margin-left: -0.5rem;
+			}
+			
+			img#logoImg {
+				display: block;
+				width: 25%;
+				margin: 0 auto;
+				padding: 2rem 0;
+			}
+			
+			img#titleImg {
+				display: block;
+				width: 75%;
+				margin: 2rem auto;
+			}
+			
+			#box {
+				margin: 0 auto;
+				width: 85%;
+				text-align: left;
+			}
+			
+			#box>div {
+				margin: 1rem auto;
+			}
+			
+			.inputBox {
+				display: block;
+				-webkit-box-flex: 1;
+				-webkit-appearance: none;
+				position: relative;
+				height: 2rem;
+				margin-left: 0.5rem;
+				border: none;
+				box-sizing: border-box;
+				font-size: 1rem;
+				text-align: center;
+			}
+			
+			.smallInput {
+				background: transparent url(input2.png) no-repeat 0 0/100% 100%;
+			}
+			
+			.normalInput {
+				background: transparent url(input1.png) no-repeat 0 0/100% 100%;
+			}
+			
+			.select {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 2rem;
+				margin-left: 0;
+				opacity: 0;
+			}
+			
+			.coverSelectSpan {
+				display: block;
+				left: 0.5rem;
+				width: 100%;
+				line-height: 2rem;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			
+			.smallBox {
+				width: 48%;
+			}
+			
+			.iconFontLabel {
+				position: absolute;
+				top: 0;
+				right: 0.5em;
+				z-index: 1;
+				line-height: 2;
+				text-align: right;
+			}
+			
+			.webkitBox {
+				display: -webkit-box;
+				-webkit-box-align: center;
+				-webkit-box-flex: 1;
+				position: relative;
+			}
+			
+			.hidden {
+				display: none;
+			}
+			
+			.spaceBetween {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			
+			#joinBtn {
+				width: 65%;
+				height: 2rem;
+				margin: 1rem auto;
+			}
+			
+			#joinBtn>img {
+				max-width: 100%;
+				max-height: 100%;
+				text-decoration: none;
+			}
+			
+			#bottom {
+				height: 2rem;
+				margin: 1rem auto;
+			}
+			
+			#bottom>label {
+				display: block;
+				width: 100%;
+				text-align: center;
+			}
+			
+			#uploadImgBox {
+				display: -webkit-box;
+				-webkit-box-align: center;
+				-webkit-box-pack: center;
+				position: relative;
+				width: 50%;
+			}
+			
+			#uploadImgBox.hidden {
+				display: none;
+			}
+			
+			#uploadImgBox img {
+				max-width: 100%;
+			}
+			
+			#uploadImgBtn {
+				position: absolute;
+				bottom: 0.2rem;
+				left: 50%;
+				width: 97%;
+				transform: translateX(-50%);
+				z-index: 2;
+			}
+			
+			#choosedImg {
+				display: none;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				z-index: 1;
+				max-width: 85%;
+				max-height: 85%;
+				transform: translate(-50%, -50%);
+			}
+			
+			#choosedImg.show {
+				display: block;
+			}
+			
+			.checkboxDiv {
+				position: relative;
+				height: 2rem;
+			}
+			
+			.checkboxDiv>div{
+				display: inline-block;
+			}
+			
+			.checkboxDiv>label{
+				line-height: 2rem;
+    				vertical-align: middle;
+			}
+			
+			.checkbox{
+				position: absolute;
+				top: 0.5rem;
+				left: 0;
+				width: 1rem;
+				height: 1rem;
+				background: transparent url(checkBox.png) 0 0/100% auto;
+			}
+			
+			.checkedbox{
+				background: transparent url(checkedBox.png) 0 0/100% auto;
+			}
+			
+			input[type=checkbox]{
+				margin: 0;
+				border: none;
+				opacity: 0;
+			}			
+		</style>
+	</head>
+
+	<body v-cloak>
+		<div class="content">
+			<img src="../activityCommonSource/logo.png" id="logoImg" />
+			<img src="title.png" id="titleImg" />
+
+			<div id="box">
+				<!--普通输入框-->
+				<div id="name" class="webkitBox">
+					<label for="activityName">姓名</label>
+					<input type="text" name="activityName" id="activityName" class="inputBox normalInput" />
+				</div>
+				<div id="phone" class="webkitBox">
+					<label for="activityTel">电话</label>
+					<input type="text" name="activityTel" id="activityTel" class="inputBox normalInput" maxlength="11" />
+				</div>
+
+				<div id="sexAge" class="webkitBox spaceBetween">
+					<div id="sex" class="webkitBox smallBox">
+						<label for="">{{data.selectObj[0].name}}</label>
+						<div class="inputBox smallInput">
+							<label for="activitySex" class="coverSelectSpan">{{data.selectObj[0].value[0]}}<lable class="iconfont">&#xe610;</lable></label>
+							<select name="sex" id="activitySex" class="select">
+								<option v-value="{{option}}" v-for="option in data.selectObj[0].value">{{option}}</option>
+							</select>
+						</div>
+					</div>
+					<div id="age" class="webkitBox smallBox">
+						<label class="rightLabel">年龄</label>
+						<div class="webkitBox">
+							<label for="activityAge" class="iconFontLabel">岁</label>
+							<input type="number" name="activityAge" id="activityAge" value="" min="1" max="999" class="inputBox smallInput" />
+						</div>
+					</div>
+				</div>
+
+				<!-- 选择列表 -->
+				<div class="webkitBox">
+					<label for="">{{data.selectObj[1].name}}</label>
+					<div class="inputBox normalInput">
+						<label class="coverSelectSpan">{{data.selectObj[1].value[0]}}<lable class="iconfont">&#xe610;</lable></label>
+						<select class="select">
+							<option v-value="{{option}}" v-for="option in data.selectObj[1].value">{{option}}</option>
+						</select>
+					</div>
+				</div>
+
+				<div id="uploadImgBox" class="hidden">
+					<img src="uploadImgBg.png" id="uploadImg" />
+					<img src="" id="choosedImg" />
+					<img src="uploadImgBtn.png" id="uploadImgBtn" />
+					<form class="image " method="post" enctype="multipart/form-data" hidden>
+						<input type="file" name="image" id="chooseImgInput" />
+					</form>
+				</div>
+
+				<div id="project" class="webkitBox">
+					<label for="">项目</label>
+					<div style="margin-left: 0.5rem;" class="webkitBox">
+						<div class="checkboxDiv">
+							<div>
+								<div class="checkbox"></div>
+								<input type="checkbox" name="item1" id="item1" value="" />
+							</div>
+							<label for="item1" value="1">crew battle</label>
+						</div>
+						<div class="checkboxDiv">
+							<div>
+								<div class="checkbox"></div>
+								<input type="checkbox" name="item2" id="item2" value="" />
+							</div>
+							<label for="item2" value="2">齐舞</label>
+						</div>
+						<div class="checkboxDiv">
+							<div id="">
+								<div class="checkbox"></div>
+								<input type="checkbox" name="item3" id="item3" value="" />
+							</div>
+							<label for="item3" value="3">7 to smoke</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="joinBtn">
+				<img src="signUpBtn.png" />
+			</div>
+
+			<div id="bottom">
+				<label for="" id="activityDesc">活动说明</label>
+			</div>
+		</div>
+
+		<div id="popWin">
+			<div id="popOuter">照片上传中...</div>
+		</div>
+
+		<div id="popWinDesc">
+			<div id="popOuter">
+				<div id="popInner">
+					<p style="text-align: center;"><strong>怡丰城少儿珠心速算、绘画大课堂</strong></p>
+					报名时间：即日起-2016年7月27日<br /><br /> 报名地点：南海怡丰城二楼怡丰汇
+					<br /><br /> 学员年龄：6-12周岁
+					<br /> （1）必须是怡丰城会员；
+					<br /> （2）报名学员或者家长会员卡必须超过1500积分；
+					<br /> （3）报名扣除1000积分；
+					<br /> （4）即日起-2016.07.27合计消费满288元；
+					<br /> 报名需满足以上全部条件方可参与。
+					<br /><br /> 注：任何报名渠道报名不代表成功参与，以工作人员与报名者签署报名表后才算报名成功，请各位会员报名后保持电话畅通以便联系。
+				</div>
+				<button id="closeBtn">点击关闭</button>
+			</div>
+		</div>
+
+		<script src="../activityCommonSource/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../activityCommonSource/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../activityCommonSource/frameScript.js"></script>
+		<script src="../activityCommonSource/common.js"></script>
+		<script src="../activityCommonSource/lrz.mobile.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../activityCommonSource/enrollSuccess.js" type="text/javascript" charset="utf-8"></script>
+		<script src="activity-template.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>
